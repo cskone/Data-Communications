@@ -10,6 +10,7 @@ public class Dijkstra {
 		File test = new File("C:\\Programming\\CSCI3401\\Final Project\\src txt files\\test.txt");
 		G = GraphBuilder.graph(test);
 		dijkstra(G, 0);
+		System.out.println(Arrays.toString(p));
 		System.out.println(Arrays.toString(d));
 	}
 		
@@ -41,6 +42,7 @@ public class Dijkstra {
 			S.add(u);
 			for(int v : Q)	{
 				relax(u, v, graph);
+				PriorityQueue.decreaseKey(Q, v, d);
 			}
 		}
 		
