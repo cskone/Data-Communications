@@ -58,6 +58,7 @@ public class PriorityQueue	{
 			heap.set(parent, heap.get(child));
 			heap.set(child, temp);
 			child = parent;
+			parent = (child-1)/2;
 		}
 	}
 	

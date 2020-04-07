@@ -5,10 +5,8 @@ public class Dijkstra {
 	static double[] d;
 	static int[] p;
 	
-	public static void main(String[] args) throws FileNotFoundException {
-		File nsfNet = new File("C:\\Programming\\CSCI3401\\Final Project\\src txt files\\nsfnet.txt");
-		File test = new File("C:\\Programming\\CSCI3401\\Final Project\\src txt files\\test.txt");
-		G = GraphBuilder.graph(test);
+	public static void main(String[] args)	throws FileNotFoundException {
+		G = App.graph();
 		dijkstra(G, 0);
 		System.out.println(Arrays.toString(p));
 		System.out.println(Arrays.toString(d));
