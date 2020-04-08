@@ -7,8 +7,7 @@ public class Dijkstra {
 	
 	public static void main(String[] args)	throws FileNotFoundException {
 		G = App.graph();
-		dijkstra(G, 0);
-		System.out.println(Arrays.toString(p));
+		dijkstra(G, GraphBuilder.getCities().indexOf("t"));
 		System.out.println(Arrays.toString(d));
 	}
 		
