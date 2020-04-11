@@ -2,5 +2,5 @@ s t 3
 s y 5
 t x 6
 t y 2
-x z 1
+x z 7
 y z 6
