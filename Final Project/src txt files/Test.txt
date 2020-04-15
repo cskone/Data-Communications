@@ -1,4 +1,4 @@
-s t 3
+s t 300
 s y 5
 t x 6
 t y 2

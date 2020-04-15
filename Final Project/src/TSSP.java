@@ -1,9 +1,6 @@
 import java.util.*;
-public class Suurballe {
-	public static void main(String[] args) {
 
-	}
-	
+public class TSSP {
 	public static int[][] getP1(ArrayList<Integer> path)	{
 		int[][] p1 = new int[path.size()-1][2];
 		int j = 0;
@@ -15,17 +12,14 @@ public class Suurballe {
 		}
 		return p1;
 	}
-	/**
-	 * @param graph: the adjacency matrix built in GraphBuilder class
-	 * @param path: a list of nodes creating the path from the source to a destination.
-	 * @return a copy of graph but the edges in path have swapped direction and their weights negative
-	 */
-	public static double[][] gPrime(double[][] graph, ArrayList<Integer> path)	{
+	
+	public static double[][] gPrime(double[][] graph, int[][] p1)	{
 		double[][] gPrime = graph;
-		for(int i = 0; i < path.size()-1; i++)	{
-			gPrime[path.get(i+1)][path.get(i)] = -graph[path.get(i)][path.get(i+1)];	// Sets the weight of the reverse direction to negative
-			gPrime[path.get(i)][path.get(i+1)] = Double.MAX_VALUE;	// Closes the direction the path goes
+		for(int i = 0; i < p1.length; i++)	{
+			gPrime[p1[i][0]][p1[i][1]] = Double.MAX_VALUE;
+			gPrime[p1[i][1]][p1[i][0]] = Double.MAX_VALUE;
 		}
+
 		return gPrime;
 	}
 	
@@ -53,7 +47,7 @@ public class Suurballe {
 			survivablePath[p1[i][0]][p1[i][1]] = 1;
 		}
 		for(int i = 0; i < p2.length; i++)	{
-			survivablePath[p2[i][0]][p2[i][1]] = (survivablePath[p2[i][0]][p2[i][1]] == 1 || survivablePath[p2[i][1]][p2[i][0]] == 1) ? 0 : 1;
+			survivablePath[p2[i][0]][p2[i][1]] = 1;
 		}
 		return survivablePath;
 	}
