@@ -29,9 +29,8 @@ public class App {
 		runDijkstra(graph, getCityIndex(src));
 		ArrayList<Integer> path = Dijkstra.getPath(getCityIndex(src), getCityIndex(dest));
 		int[][] p1 = TSSP.getP1(path);
-		double[][] gPrime = TSSP.gPrime(graph, p1);
 		try	{
-			int[][] p2 = TSSP.getP2(gPrime, src, dest);
+			int[][] p2 = TSSP.getP2(TSSP.gPrime(graph, p1), src, dest);
 			int[][] newPaths = TSSP.survivablePath(graph, p1, p2);
 			for(int[] x : newPaths)	System.out.println(Arrays.toString(x));
 		}	catch (Exception e)	{

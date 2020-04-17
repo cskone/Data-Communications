@@ -1,8 +1,8 @@
 import java.util.*;
 public class Dijkstra {
-	static double[][] G;
-	static double[] d;
-	static int[] p;
+	static double[][] G;	// Adjacency matrix
+	static double[] d;		// distance array
+	static int[] p;			// Parent array
 	
 	/**
 	 * getter to retrieve the distance array
@@ -19,6 +19,7 @@ public class Dijkstra {
 	public static int[] getP()	{
 		return p;
 	}
+	
 	/**
 	 * Prepares the distance and parent arrays	
 	 * @param graph: the adjacency matrix built in GraphBuilder class
@@ -35,6 +36,7 @@ public class Dijkstra {
 		
 		d[s] = 0;
 	}
+	
 	/**
 	 * Decreases the weight of v if the new path is shorter and sets the parent of v to u
 	 * @param u: the node at center of this iteration of checks
@@ -47,6 +49,7 @@ public class Dijkstra {
 			p[v] = u;
 		}
 	}
+	
 	/**
 	 * Runs the Dijkstra algorithm 
 	 * @param graph: the adjacency matrix built in GraphBuilder class
@@ -65,6 +68,7 @@ public class Dijkstra {
 			}
 		}
 	}
+	
 	/**
 	 * @param src: Source node
 	 * @param dest: destination
