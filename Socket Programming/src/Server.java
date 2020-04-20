@@ -28,8 +28,7 @@ public class Server {
     System.out.println ("Connection successful");
     System.out.println ("Waiting for input.....");
 
-    PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), 
-                                      true); 
+    PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true); 
     BufferedReader in = new BufferedReader( 
             new InputStreamReader( clientSocket.getInputStream())); 
 
