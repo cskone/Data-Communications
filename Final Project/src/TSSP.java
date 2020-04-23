@@ -36,18 +36,16 @@ public class TSSP {
 	
 	/**
 	 * Creates a list of edges that form the shortest path from source to destination based on modifications
-	 * 		to the graph in gPrime method
+	 * to the graph in gPrime method
 	 * @param gPrime: A modified adjacency matrix where the edges in P1 are removed
 	 * @param src: the name of the source node
 	 * @param dest: the name of the destination node
 	 * @return
 	 */
-	public static int[][] getP2(double[][] gPrime, String src, String dest)	{
-		int source = GraphBuilder.getCities().indexOf(src);			// Index of the source node
-		int destination = GraphBuilder.getCities().indexOf(dest);	// Index of the destination node
+	public static int[][] getP2(double[][] gPrime, int src, int dest)	{
 		ArrayList<Integer> p2Nodes = new ArrayList<Integer>();
-		Dijkstra.dijkstra(gPrime, source);	// List of nodes from src to dest
-		p2Nodes = Dijkstra.getPath(source, destination);
+		Dijkstra.dijkstra(gPrime, src);	// List of nodes from src to dest
+		p2Nodes = Dijkstra.getPath(src, dest);
 		
 		int[][] p2 = new int[p2Nodes.size()-1][2];
 		int j = 0;
@@ -77,5 +75,24 @@ public class TSSP {
 			survivablePath[p2[i][0]][p2[i][1]] = 1;
 		}
 		return survivablePath;
+	}
+	
+	/**
+	 * Runs the TSSP algorithm
+	 * @param graph: the adjacency matrix built in GraphBuilder class
+	 * @param src: source node
+	 * @param dest: destination node
+	 * @return returns a 1 if the algorithm successfully created a pair of disjoint paths
+	 * and 0 if it didn't
+	 */
+	public static int runTSSP(double[][] graph, int src, int dest)	{
+		Dijkstra.dijkstra(graph, src);
+		ArrayList<Integer> path = Dijkstra.getPath(src, dest);
+		int[][] p1 = TSSP.getP1(path);
+		try	{
+			int[][] p2 = TSSP.getP2(TSSP.gPrime(graph, p1), src, dest);
+			int[][] newPaths = TSSP.survivablePath(graph, p1, p2);
+			return 1;
+		}	catch (Exception e){return 0;}
 	}
 }

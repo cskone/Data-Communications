@@ -42,6 +42,7 @@ public class GraphBuilder {
 	}
 	
 	/**
+	 * list of names of nodes for debugging
 	 * @return sorted list of the names of nodes
 	 */
 	public static ArrayList<String> getCities()	{

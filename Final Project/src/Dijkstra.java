@@ -70,9 +70,11 @@ public class Dijkstra {
 	}
 	
 	/**
+	 * Creates a list of nodes representing a path from a source to a destination node.
+	 * Element with MAX_VALUE is the source node
 	 * @param src: Source node
 	 * @param dest: destination
-	 * @return a list of nodes that create the path from src to dest. Element with max int value is the src node
+	 * @return a list of nodes that create the path from src to dest.
 	 */
 	public static ArrayList<Integer> getPath(int src, int dest)	{
 		ArrayList<Integer> path = new ArrayList<Integer>();

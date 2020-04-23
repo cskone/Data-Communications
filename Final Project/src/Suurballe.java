@@ -35,14 +35,14 @@ public class Suurballe {
 	/**
 	 * Creates a list of edges from source to destination based on modifications defined in Suurballe's algorithm
 	 * @param gPrime: an adjacency graph modified by gPrime method
+	 * @param src: source node of the path
+	 * @param dest: destination of the path
 	 * @return a 2D array containing the edges of the shortest path
 	 */
-	public static int[][] getP2(double[][] gPrime, String src, String dest)	{
-		int source = GraphBuilder.getCities().indexOf(src);
-		int destination = GraphBuilder.getCities().indexOf(dest);
+	public static int[][] getP2(double[][] gPrime, int src, int dest)	{
 		ArrayList<Integer> p2Nodes = new ArrayList<Integer>();	// List of nodes from src to dest
-		Dijkstra.dijkstra(gPrime, source);
-		p2Nodes = Dijkstra.getPath(source, destination);
+		Dijkstra.dijkstra(gPrime, src);
+		p2Nodes = Dijkstra.getPath(src, dest);
 		
 		int[][] p2 = new int[p2Nodes.size()-1][2];
 		int j = 0;
@@ -72,5 +72,24 @@ public class Suurballe {
 			survivablePath[p2[i][0]] [p2[i][1]] = (survivablePath[p2[i][0]] [p2[i][1]] == 1 || survivablePath[p2[i][1]] [p2[i][0]] == 1) ? 0 : 1;
 		}
 		return survivablePath;
+	}
+	
+	/**
+	 * Runs the suurballe algorithm
+	 * @param graph: the adjacency matrix built in GraphBuilder class
+	 * @param src: source node
+	 * @param dest: destination node
+	 * @return returns a 1 if the algorithm successfully created a pair of disjoint paths
+	 * and 0 if it didn't
+	 */
+	public static int runSuurballe(double[][] graph, int src, int dest)	{
+		Dijkstra.dijkstra(graph, src);
+		ArrayList<Integer> path = Dijkstra.getPath(src, dest);
+		int[][] p1 = Suurballe.getP1(path);
+		try	{
+			int[][] p2 = Suurballe.getP2(Suurballe.gPrime(graph, path), src, dest);
+			int[][] newPaths = Suurballe.survivablePath(graph, p1, p2);
+			return 1;
+		} catch (Exception e){return 0;}
 	}
 }

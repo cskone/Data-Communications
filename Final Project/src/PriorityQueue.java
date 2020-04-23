@@ -1,6 +1,7 @@
 import java.util.*;
 /**
- * A Priority Queue that sorts its contents based on values outside of the queue
+ * A Priority Queue that sorts its contents based on values in a separate location 
+ * which are pointed to by the contents of the queue
  * @author Collin Skone
  */
 public class PriorityQueue	{
@@ -18,7 +19,9 @@ public class PriorityQueue	{
 		buildMinHeap(queue, keys);
 		return queue;
 	}
+	
 	/**
+	 * Sets the index of the left child
 	 * @param i: index of the parent
 	 * @return the index of the left child
 	 */
@@ -26,12 +29,14 @@ public class PriorityQueue	{
 		return 2*i+1;
 	}
 	/**
+	 * Sets the index of the right child
 	 * @param i: index of the parent
 	 * @return the index of the right child
 	 */
 	public static int right(int i)	{	// Right Child
 		return 2*i+2;
 	}
+	
 	/**
 	 * creates the minHeap property
 	 * @param heap: the queue being minHeapified
@@ -63,6 +68,7 @@ public class PriorityQueue	{
 			minHeapify(heap, keys, smallest);
 		}
 	}
+	
 	/**
 	 * Sorts the queue
 	 * @param heap: the queue being sorted
@@ -74,6 +80,7 @@ public class PriorityQueue	{
 			minHeapify(heap, keys, i);
 		}
 	}
+	
 	/**
 	 * Reorganizes the queue when there is a change in the value of a node
 	 * @param heap: the queue being sorted
@@ -94,6 +101,7 @@ public class PriorityQueue	{
 			
 		}
 	}
+	
 	/**
 	 * Removes the smallest item in the queue based on its value in the keys array
 	 * @param heap: queue being affected

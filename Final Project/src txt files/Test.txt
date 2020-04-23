@@ -1,6 +1,7 @@
-s t 300
-s y 5
-t x 6
-t y 2
-x z 7
-y z 6
+A B 1
+A E 2
+B C 1
+B F 4
+C D 1
+E C 3
+F D 5
