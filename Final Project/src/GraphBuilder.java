@@ -21,7 +21,8 @@ public class GraphBuilder {
 		}
 		console.close();
 		
-		ArrayList<String> cities = new ArrayList<String>(rawCities);	// Arraylist being used in future operations
+		ArrayList<String> cities = new ArrayList<String>(rawCities);	// Arraylist being used in future operations.
+																		// The needed operations are not available for SortedSets.
 		double[][] edges = new double[cities.size()][cities.size()];
 		cityList = cities;
 		

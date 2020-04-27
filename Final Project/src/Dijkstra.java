@@ -57,11 +57,9 @@ public class Dijkstra {
 	 */
 	public static void dijkstra(double[][] graph, int s)	{
 		initialize(graph, s);
-		ArrayList<Integer> S = new ArrayList<Integer>();
 		ArrayList<Integer> Q = PriorityQueue.priorityQueue(d);
 		while(Q.size() != 0)	{
 			int u = PriorityQueue.extractMin(Q, d);
-			S.add(u);
 			for(int v : Q)	{
 				relax(u, v, graph);
 				PriorityQueue.decreaseKey(Q, v, d);

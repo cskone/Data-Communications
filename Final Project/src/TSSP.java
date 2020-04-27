@@ -2,11 +2,13 @@ import java.util.*;
 
 public class TSSP {
 	/**
-	 * Creates a list of edges that form the shortest path from source to destination
-	 * @param path: a list of nodes creating the path from the source to a destination.
+	 * Creates a list of edges from source to destination
+	 * @param src: the source of the path
+	 * @param dest: the destination of the path
 	 * @return a 2D array containing the edges of the shortest path
 	 */
-	public static int[][] getP1(ArrayList<Integer> path)	{
+	public static int[][] getP1(int src, int dest)	{
+		ArrayList<Integer> path = Dijkstra.getPath(src, dest);
 		int[][] p1 = new int[path.size()-1][2];
 		int j = 0;
 		for(int i = 0; i < p1.length; i++)	{
@@ -87,8 +89,7 @@ public class TSSP {
 	 */
 	public static int runTSSP(double[][] graph, int src, int dest)	{
 		Dijkstra.dijkstra(graph, src);
-		ArrayList<Integer> path = Dijkstra.getPath(src, dest);
-		int[][] p1 = TSSP.getP1(path);
+		int[][] p1 = TSSP.getP1(src, dest);
 		try	{
 			int[][] p2 = TSSP.getP2(TSSP.gPrime(graph, p1), src, dest);
 			int[][] newPaths = TSSP.survivablePath(graph, p1, p2);

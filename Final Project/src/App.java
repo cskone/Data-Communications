@@ -1,17 +1,23 @@
-import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.io.*;
 public class App {
 	public static void main(String[] args)	throws FileNotFoundException	{
+		// Files
 		File nsfNet = new File("C:\\Programming\\CSCI3401\\Final Project\\src txt files\\nsfnet.txt");
-		File test = new File("C:\\Programming\\CSCI3401\\Final Project\\src txt files\\test.txt");
+		File trapGraph = new File("C:\\Programming\\CSCI3401\\Final Project\\src txt files\\trapgraph.txt");
 		File coroNet = new File("C:\\Programming\\CSCI3401\\Final Project\\src txt files\\coronet.txt");
-		
+		// Paths to test
 		int[][] randNSFPath = assignPaths(1000, 14);
 		int[][] randCOROPath = assignPaths(1000, 75);
 		int[][] randTrapPath = assignPaths(1000, 6);
 		
-		suurballeTimeTest(randNSFPath, coroNet);
+//		suurballeTimeTest([List of src-dest node pairs], [File of interest]);
+//		System.out.println();
+//		tsspTimeTest([List of src-dest node pairs], [File of interest]);
+		
+//		suurballeSuccessTest([List of src-dest node pairs], [File of interest]);
+//		System.out.println();
+//		tsspSuccessTest([List of src-dest node pairs], [File of interest]);
 	}
 
 	/**
@@ -23,7 +29,7 @@ public class App {
 	public static int[][] assignPaths(int testCount, int nodeCount)	{
 		int[][] randPaths = new int[testCount][2];
 		for(int i = 0; i < randPaths.length; i++)	{
-			int testSrcNode = ThreadLocalRandom.current().nextInt(0, nodeCount+1);
+			int testSrcNode = ThreadLocalRandom.current().nextInt(0, nodeCount);
 			int testDestNode = testSrcNode;
 			while(testDestNode == testSrcNode)	testDestNode = ThreadLocalRandom.current().nextInt(0, 5);
 			randPaths[i][0] = testSrcNode;
@@ -70,31 +76,29 @@ public class App {
 	 * Runs Suurballe to find the success rate of correctly built paths
 	 * @param randPath: 2D array of source and destination nodes
 	 * @param file: document containing names of nodes and the weight between them
-	 * @return the number of pairs of disjoint paths successfully created
 	 * @throws FileNotFoundException
 	 */
-	public static int suurballeSuccessTest(int[][] randPath, File file) throws FileNotFoundException	{
+	public static void suurballeSuccessTest(int[][] randPath, File file) throws FileNotFoundException	{
 		int success = 0;
 		for(int i = 0; i < randPath.length; i++)	{
 			double[][] suurballeGraph = GraphBuilder.graph(file);
 			success += Suurballe.runSuurballe(suurballeGraph, randPath[i][0], randPath[i][1]);
 		}
-		return success;
+		System.out.println(success);
 	}
 	
 	/**
 	 * Runs TSSP to find the success rate of correctly built paths
 	 * @param randPath: 2D array of source and destination nodes
 	 * @param file: document containing names of nodes and the weight between them
-	 * @return the number of pairs of disjoint paths successfully created
 	 * @throws FileNotFoundException
 	 */
-	public static int tsspSuccessTest(int[][] randPath, File file) throws FileNotFoundException	{
+	public static void tsspSuccessTest(int[][] randPath, File file) throws FileNotFoundException	{
 		int success = 0;
 		for(int i = 0; i < randPath.length; i++)	{
 			double[][] tsspGraph = GraphBuilder.graph(file);
 			success += TSSP.runTSSP(tsspGraph, randPath[i][0], randPath[i][1]);
 		}
-		return success;
+		System.out.println(success);
 	}
 }

@@ -2,10 +2,12 @@ import java.util.*;
 public class Suurballe {
 	/**
 	 * Creates a list of edges from source to destination
-	 * @param path: a list of nodes creating the path from the source to a destination.
+	 * @param src: the source of the path
+	 * @param dest: the destination of the path
 	 * @return a 2D array containing the edges of the shortest path
 	 */
-	public static int[][] getP1(ArrayList<Integer> path)	{
+	public static int[][] getP1(int src, int dest)	{
+		ArrayList<Integer> path = Dijkstra.getPath(src, dest);
 		int[][] p1 = new int[path.size()-1][2];
 		int j = 0;
 		for(int i = 0; i < p1.length; i++)	{
@@ -18,16 +20,17 @@ public class Suurballe {
 	}
 	
 	/**
-	 * Builds an adjacency matrix where edges in P1 have swapped direction and their weights negative
+	 * Builds G' which is an adjacency matrix where edges in P1 have swapped direction and their weights negative
 	 * @param graph: the adjacency matrix built in GraphBuilder class
 	 * @param path: a list of nodes creating the path from the source to a destination.
 	 * @return a copy of graph but the edges in path have swapped direction and their weights negative
 	 */
-	public static double[][] gPrime(double[][] graph, ArrayList<Integer> path)	{
+
+	public static double[][] gPrime(double[][] graph, int[][] p1)	{
 		double[][] gPrime = graph;
-		for(int i = 0; i < path.size()-1; i++)	{
-			gPrime[path.get(i+1)][path.get(i)] = -graph[path.get(i)][path.get(i+1)];	// Sets the weight of the reverse direction to negative
-			gPrime[path.get(i)][path.get(i+1)] = Double.MAX_VALUE;	// Closes the direction the path goes
+		for(int i = 0; i < p1.length; i++)	{
+			gPrime[p1[i][1]][p1[i][0]] = -graph[p1[i][0]][p1[i][1]];	// Sets the weight of the reverse direction to negative
+			gPrime[p1[i][0]][p1[i][1]] = Double.MAX_VALUE;	// Closes the direction the path goes
 		}
 		return gPrime;
 	}
@@ -69,7 +72,8 @@ public class Suurballe {
 			survivablePath[p1[i][0]] [p1[i][1]] = 1;
 		}
 		for(int i = 0; i < p2.length; i++)	{
-			survivablePath[p2[i][0]] [p2[i][1]] = (survivablePath[p2[i][0]] [p2[i][1]] == 1 || survivablePath[p2[i][1]] [p2[i][0]] == 1) ? 0 : 1;
+			survivablePath[p2[i][0]] [p2[i][1]] = 
+					(survivablePath[p2[i][0]] [p2[i][1]] == 1 || survivablePath[p2[i][1]] [p2[i][0]] == 1) ? 0 : 1;
 		}
 		return survivablePath;
 	}
@@ -85,10 +89,10 @@ public class Suurballe {
 	public static int runSuurballe(double[][] graph, int src, int dest)	{
 		Dijkstra.dijkstra(graph, src);
 		ArrayList<Integer> path = Dijkstra.getPath(src, dest);
-		int[][] p1 = Suurballe.getP1(path);
+		int[][] p1 = getP1(src, dest);
 		try	{
-			int[][] p2 = Suurballe.getP2(Suurballe.gPrime(graph, path), src, dest);
-			int[][] newPaths = Suurballe.survivablePath(graph, p1, p2);
+			int[][] p2 = getP2(gPrime(graph, p1), src, dest);
+			int[][] newPaths = survivablePath(graph, p1, p2);
 			return 1;
 		} catch (Exception e){return 0;}
 	}
